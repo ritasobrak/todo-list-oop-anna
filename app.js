@@ -20,10 +20,20 @@ clearBtn.addEventListener('click', clearTasks);
 //filter task from list
 filterInput.addEventListener('keyup', filterTasks);
 
+
+
+
+//create new ui object
+const ui = new UI();
+
+//create new Local Storage object
+const ls = new LS();
+
+
 //addTask function
 function addTask(e) {
     if (taskInput.value === '') {
-        alert("Add New Task!")
+        alert("Add new task!");
     } else {
         //create li
         const li = document.createElement('li');
@@ -64,7 +74,12 @@ function removeTask(e) {
 //clearTasks function
 function clearTasks(e) {
     taskList.innerHTML = '';
-    localStorage.clear();
+    //clear contacts from Local Storage
+    //create new ui object
+    const ui = new UI();
+    //create new Local Storage object
+    const ls = new LS();
+    ls.clearTasks();
 }
 
 //filterTasks function
