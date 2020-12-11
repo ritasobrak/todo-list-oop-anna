@@ -2,11 +2,14 @@
 const form = document.querySelector('#task-form');
 const taskList = document.querySelector('#tasks-list');
 
+
 // define event listeners
 // page reload event - get data from Local Storage
 document.addEventListener('DOMContentLoaded', getTasks);
 // add task to list - submit button
 form.addEventListener('submit', addTask);
+//remove task from list - fas fa-backspace icon
+taskList.addEventListener('click', removeTask);
 
 // addTask function
 function addTask(e) {
@@ -23,11 +26,13 @@ function addTask(e) {
         // create new task object with form data
         const task = new Task(taskInput);
         // add task object data to html list
+
         ui.addTaskToTable(task);
         // save task data to Local Storage
         ls.saveTask(task);
         // show ok alert message
         ui.alertMessage("Added task to todo-list!", "ok");
+        form.reset();
         e.preventDefault();
     }
 }
@@ -48,19 +53,23 @@ function getTasks() {
     });
 }
 
-
-/*//removeTask function
+//removeTask function
 function removeTask(e) {
     //is click is over icon - over a tag
+
     if (e.target.parentElement.classList.contains('secondary-content')) {
         if (confirm('Do you want to remove this task?')) {
             e.target.parentElement.parentElement.remove();
-            storeTaskInLocalStorage();
+            // create new Local Storage object
+            const ls = new LS();
+            //delete task from LS
+            ls.removeTask(e.target.parentElement.parentElement.innerText);
         }
     }
 }
 
-//clearTasks function
+
+/*//clearTasks function
 function clearTasks(e) {
     taskList.innerHTML = '';
     //clear contacts from Local Storage

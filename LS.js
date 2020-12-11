@@ -27,5 +27,22 @@ class LS {
         }
         return tasks;
     }
+
+    removeTask(name) {
+        //get all data from LS
+        const tasks = this.getTasks();
+        console.log(tasks);
+        //control each task
+        tasks.forEach(function (task, index) {
+            if (task.task === name) {
+                tasks.splice(index, 1);
+            }
+        });
+
+        //set up data on LS
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        //return true
+        return true;
+    }
 }
 
