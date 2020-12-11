@@ -44,5 +44,24 @@ class LS {
         //return true
         return true;
     }
+
+    clearTasks() {
+        //get task data from Local Storage
+        let tasks;
+        //if data not exists
+        if (localStorage.getItem('tasks') === null) {
+            tasks = [];
+        } else {
+            //data is exists
+            //set empty data to Local Storage
+            tasks = [];
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            localStorage.clear();
+            //return true
+            return true;
+        }
+
+    }
+
 }
 

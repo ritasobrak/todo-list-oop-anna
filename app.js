@@ -1,6 +1,7 @@
 // define variables
 const form = document.querySelector('#task-form');
 const taskList = document.querySelector('#tasks-list');
+const clearBtn = document.querySelector('#clear-tasks');
 
 
 // define event listeners
@@ -10,6 +11,8 @@ document.addEventListener('DOMContentLoaded', getTasks);
 form.addEventListener('submit', addTask);
 //remove task from list - fas fa-backspace icon
 taskList.addEventListener('click', removeTask);
+//clear all tasks from table
+clearBtn.addEventListener('click', clearTasks);
 
 // addTask function
 function addTask(e) {
@@ -68,8 +71,7 @@ function removeTask(e) {
     }
 }
 
-
-/*//clearTasks function
+//clearContacts
 function clearTasks(e) {
     taskList.innerHTML = '';
     //clear contacts from Local Storage
@@ -77,37 +79,18 @@ function clearTasks(e) {
     const ui = new UI();
     //create new Local Storage object
     const ls = new LS();
-    ls.clearTasks();
-}
-
-//filterTasks function
-function filterTasks(e) {
-    const text = e.target.value.toLowerCase();
-    document.querySelectorAll('.collection-item').forEach(
-        function (task) {
-            const item = task.firstChild.textContent.toLowerCase();
-            if (item.indexOf(text) != -1) {
-                task.style.display = 'block';
-            } else {
-                task.style.display = 'none';
-            }
-
-        }
-    );
-}
-
-
-//storeTaskInLocalStorage function
-function storeTaskInLocalStorage(task = null) {
-    let tasks;
-    if (localStorage.getItem('tasks') === null) {
-        tasks = '';
+    const isCleared = ls.clearTasks();
+    if(isCleared) {
+        //add alert about it
+        ui.alertMessage("Tasks are cleared", "ok");
     } else {
-        tasks = localStorage.getItem('tasks');
+        ui.alertMessage("Some problems, sorry", "problem");
     }
-    tasks = taskList.innerHTML;
-    localStorage.setItem('tasks', tasks);
-}*/
+
+}
+
+
+
 
 
 
