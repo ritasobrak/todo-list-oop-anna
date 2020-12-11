@@ -1,5 +1,5 @@
 class task {
-    constructor() {
-        taskInput.value === '';
+    constructor(task) {
+        this.task = task;
     }
 }

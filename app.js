@@ -1,65 +1,36 @@
 // define variables
 const form = document.querySelector('#task-form');
-const taskInput = document.querySelector('#task');
-const taskList = document.querySelector('.collection');
-const clearBtn = document.querySelector('#clear-tasks');
-const filterInput = document.querySelector('#filter');
+const taskList = document.querySelector('#tasks-list');
+
 
 //define event listeners
-//page reload event - get data from Local Storage
-document.addEventListener('DOMContentLoaded', getTasks);
 // add task to list - submit button
 form.addEventListener('submit', addTask);
 
-//remove task from list - fas fa-backspace icon
-taskList.addEventListener('click', removeTask);
 
-//clear all tasks from list
-clearBtn.addEventListener('click', clearTasks);
-
-//filter task from list
-filterInput.addEventListener('keyup', filterTasks);
-
-
-
-
-//create new ui object
-const ui = new UI();
-
-//create new Local Storage object
-const ls = new LS();
 
 
 //addTask function
 function addTask(e) {
-    if (taskInput.value === '') {
-        alert("Add new task!");
+    //get value from form
+    const taskInput = document.querySelector('#task').value;
+    //create new ui object
+    const ui = new UI();
+    if (taskInput === '') {
+        ui.alertMessage("Add new task!", "problem");
     } else {
-        //create li
-        const li = document.createElement('li');
-        //add class
-        li.className = "collection-item";
-        //add input value
-        li.appendChild(document.createTextNode(taskInput.value));
-        //link for element removing
-        const link = document.createElement('a');
-        // add css to link
-        link.className = 'secondary-content';
-        // add fas icon
-        link.innerHTML = '<i class="fas fa-backspace"></i>';
-        //add link into li
-        li.appendChild(link);
-        //add li into ul
-        taskList.appendChild(li);
-        //store task in Local Storage
-        storeTaskInLocalStorage(taskInput.value);
-        //clear task input
-        taskInput.value = '';
+        //create new task object with form data
+        const task = new task (taskInput);
+        //add task object data to html list
+        ui.addTaskToTable(task);
+        //show ok alert message
+        ui.alertMessage("Added new task to todo-list", "ok");
         e.preventDefault();
     }
 }
 
 
+/*
 //removeTask function
 function removeTask(e) {
     //is click is over icon - over a tag
@@ -121,4 +92,4 @@ function getTasks() {
     }
     taskList.innerHTML = tasks;
 
-}
+}*/
